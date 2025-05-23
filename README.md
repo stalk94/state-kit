@@ -31,13 +31,13 @@ If your project already uses react, @reduxjs/toolkit, and react-redux, you can s
 
 ```bash
 # Using npm
-npm install state-kit
+npm install statekit-react
 
 # Using yarn
-yarn add state-kit
+yarn add statekit-react
 
 # Using pnpm
-pnpm add state-kit
+pnpm add statekit-react
 ```
 
 ## Usage
