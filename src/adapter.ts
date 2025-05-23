@@ -25,7 +25,7 @@ export function createTypedStateAdapter<T>(
     dispatch: (action: any) => void,
     setAction: (payload: (draft: Draft<T>) => void) => any
 ): StateProxy<T> {
-    function createProxy(path: string[] = []): StateProxy<any> {
+    function createProxy<P = T>(path: string[] = []): StateProxy<P> {
         const target: any = {};
 
         const proxy = new Proxy(target, {
@@ -95,7 +95,7 @@ export function createTypedStateAdapter<T>(
             }
         });
 
-        return proxy as StateProxy<T>;
+        return proxy as unknown as StateProxy<P>;
     }
 
     return createProxy();

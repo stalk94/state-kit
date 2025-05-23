@@ -1,7 +1,7 @@
 {
-  "name": "state-kit",
-  "version": "1.0.0",
-  "description": "Hookstate-style adapter over Redux Toolkit",
+  "name": "statekit-react",
+  "version": "1.0.1",
+  "description": "Typed, reactive state adapter over Redux Toolkit with nested .get(), .set(), .use() and plugin system",
    "license": "MIT",
   "author": "stalk94",
   "type": "module",
@@ -17,7 +17,7 @@
     "plugin"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsup src/index.ts --format esm,cjs --dts",
     "dev": "vite",
     "test": "vitest"
   },

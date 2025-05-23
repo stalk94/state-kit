@@ -49,37 +49,12 @@ export function persistPluginOld<T>(options?: { key?: string; restore?: boolean 
         });
     };
 }
-function deepMergeWithFallback<T>(defaults: T, overrides: any): T {
-    if (typeof defaults !== 'object' || defaults === null) return overrides ?? defaults;
-    if (Array.isArray(defaults)) return Array.isArray(overrides) ? overrides : defaults;
 
-    const result: any = { ...defaults };
-
-    for (const key in defaults) {
-        const def = defaults[key];
-        const over = overrides?.[key];
-
-        if (over === null || typeof over === 'undefined') {
-            result[key] = def;
-        } else if (
-            typeof def === 'object' &&
-            def !== null &&
-            typeof over === 'object' &&
-            over !== null
-        ) {
-            result[key] = deepMergeWithFallback(def, over);
-        } else {
-            result[key] = over;
-        }
-    }
-
-    return result;
-}
 ////////////////////////////////////////////////////////////////////////////
 
 function deepReplaceNulls<T>(defaults: T, overrides: any): T {
     if (typeof defaults !== 'object' || defaults === null) return overrides ?? defaults;
-    if (Array.isArray(defaults)) return Array.isArray(overrides) ? overrides : defaults;
+    if (Array.isArray(defaults))  return (Array.isArray(overrides) ? overrides : defaults) as unknown as T;
 
     const result: any = {};
 
@@ -89,14 +64,16 @@ function deepReplaceNulls<T>(defaults: T, overrides: any): T {
 
         if (over === null || typeof over === 'undefined') {
             result[key] = def;
-        } else if (typeof def === 'object' && def !== null && typeof over === 'object') {
+        } 
+        else if (typeof def === 'object' && def !== null && typeof over === 'object') {
             result[key] = deepReplaceNulls(def, over);
-        } else {
+        } 
+        else {
             result[key] = over;
         }
     }
 
-    return result;
+    return result as T;
 }
 
 
@@ -119,7 +96,8 @@ export function persistPlugin<T>(options?: { key?: string; restore?: boolean }):
                         }
                     });
                 }
-            } catch (e) {
+            } 
+            catch (e) {
                 console.warn(`[statekit] Failed to restore ${sliceName}`, e);
             }
         }
@@ -135,7 +113,8 @@ export function persistPlugin<T>(options?: { key?: string; restore?: boolean }):
                     setTimeout(() => {
                         localStorage.setItem(localKey, data);
                     }, 0);
-                } catch (e) {
+                } 
+                catch (e) {
                     console.warn(`[statekit] Failed to save ${sliceName}`, e);
                 }
             }

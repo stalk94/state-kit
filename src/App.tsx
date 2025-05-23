@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createState, store, useLocalStorage } from './index';
+import { createState, store, useLocalStorage } from './dist';
 import { createRoot } from 'react-dom/client';
 
 
