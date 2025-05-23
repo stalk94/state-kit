@@ -19,12 +19,33 @@ as if you're working with a plain object, but with full reactivity, type safety,
 - 🧩 Modular, scalable, predictable
 
 
+
+## 📦 Full install (if you're starting from scratch)
+
+```bash
+npm install statekit-react react react-dom react-redux @reduxjs/toolkit
+```
+
+## 📦 Installation (if you already use React and Redux Toolkit) 
+If your project already uses react, @reduxjs/toolkit, and react-redux, you can simply install state-kit as a lightweight, plugin-ready state manager:
+
+```bash
+# Using npm
+npm install state-kit
+
+# Using yarn
+yarn add state-kit
+
+# Using pnpm
+pnpm add state-kit
+```
+
 ## Usage
 
 ```ts
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createState, store, useLocalStorage } from 'state-kit';
+import { createState, store, useLocalStorage } from 'statekit-react';
 
 
 // create slice
@@ -104,7 +125,7 @@ editor.size.set((prevSize) => {
 ## Persist local storage plugin
 
 ```ts
-import { createState, useLocalStorage } from 'state-kit';
+import { createState, useLocalStorage } from 'statekit-react';
 
 // 👇 Creates reactive state with auto-persist
 const editor = createState('editor', {
