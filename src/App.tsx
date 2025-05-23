@@ -18,7 +18,8 @@ function Test2() {
 
     return(
         <div style={{marginTop: '20px', color: 'red'}}>
-            { size?.width }
+            {/* or: editor?.size?.width.use() */}
+            { size.width }                   
         </div>
     );
 }
@@ -29,8 +30,8 @@ function Test({ }) {
 
     React.useEffect(() => {
         const i = setInterval(() => {
-            editor.size.width.set((s) => {
-                return s + 1;
+            editor.size.set((s) => {
+                s.width = s.width+1
             });
         }, 1000);
 

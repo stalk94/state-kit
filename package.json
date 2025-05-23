@@ -2,7 +2,7 @@
   "name": "state-kit",
   "version": "1.0.0",
   "description": "Hookstate-style adapter over Redux Toolkit",
-  "license": "ISC",
+   "license": "MIT",
   "author": "stalk94",
   "type": "module",
   "main": "dist/index.cjs",
