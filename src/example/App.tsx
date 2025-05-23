@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createState, store, useLocalStorage } from './dist';
+import { createState, store, useLocalStorage } from '../index';
 import { createRoot } from 'react-dom/client';
 
 
@@ -15,6 +15,7 @@ const editor = createState('editor', {
 
 function Test2() {
     const size = editor.size.use();
+    
 
     return(
         <div style={{marginTop: '20px', color: 'red'}}>
@@ -27,12 +28,11 @@ function Test2() {
 function Test({ }) {
     const size = editor.size.use();
     editor.size.height.useWatch(console.log)
+   
 
     React.useEffect(() => {
         const i = setInterval(() => {
-            editor.size.set((s) => {
-                s.width = s.width+1
-            });
+            
         }, 1000);
 
         return () => clearInterval(i);

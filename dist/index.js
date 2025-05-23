@@ -9,11 +9,7 @@ var createRootReducer = () => combineReducers({
 var store = configureStore({
   reducer: createRootReducer(),
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    serializableCheck: {
-      // игнорируем apply action
-      ignoredActions: ["editor/apply"],
-      ignoredPaths: ["payload"]
-    }
+    serializableCheck: false
   })
 });
 var registerReducer = (key, reducer) => {

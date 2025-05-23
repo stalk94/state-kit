@@ -47,11 +47,7 @@ var createRootReducer = () => (0, import_toolkit.combineReducers)({
 var store = (0, import_toolkit.configureStore)({
   reducer: createRootReducer(),
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    serializableCheck: {
-      // игнорируем apply action
-      ignoredActions: ["editor/apply"],
-      ignoredPaths: ["payload"]
-    }
+    serializableCheck: false
   })
 });
 var registerReducer = (key, reducer) => {

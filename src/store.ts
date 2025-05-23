@@ -13,11 +13,7 @@ export const store = configureStore({
     reducer: createRootReducer(),
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-            serializableCheck: {
-                // игнорируем apply action
-                ignoredActions: ['editor/apply'],
-                ignoredPaths: ['payload'],
-            }
+            serializableCheck: false
         }),
 });
 
