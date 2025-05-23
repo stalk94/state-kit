@@ -1,9 +1,17 @@
-# statekit
+# state-kit
 
-💡 Hookstate-like API built on top of Redux Toolkit with nested access, typed `.get()`, `.set()`, `.use()` and powerful plugin system.
+💡 StateKit is a convenient state management tool built on top of Redux Toolkit.
+It provides a simple, reactive API for accessing deeply nested state using .get(), .set(), and .use() —
+as if you're working with a plain object, but with full reactivity, type safety, and plugin support.
+
+
+## ✨ In short:
+* You write state.user.profile.name.set(...) — and the state updates  
+* You call state.user.profile.name.use() — and the component automatically subscribes to changes  
+* Under the hood, it's powered by Redux + Immer + React — but you never deal with the complexity yourself
+
 
 ## Features
-
 - 🔁 `.get()`, `.set()`, `.use()` and `.useWatch()` on any nested path
 - ⚛️ Fully typed reactive access
 - 📦 Redux DevTools compatible
