@@ -1,6 +1,6 @@
 {
   "name": "statekit-react",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Typed, reactive state adapter over Redux Toolkit with nested .get(), .set(), .use() and plugin system",
    "license": "MIT",
   "author": "stalk94",

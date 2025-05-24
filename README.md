@@ -1,24 +1,28 @@
 # state-kit
 
-💡 StateKit is a convenient state management tool built on top of Redux Toolkit.
-It provides a simple, reactive API for accessing deeply nested state using .get(), .set(), and .use() —
+💡 **StateKit** is a convenient state management tool built on top of Redux Toolkit.  
+It provides a simple, reactive API for accessing deeply nested state using `.get()`, `.set()`, and `.use()` —  
 as if you're working with a plain object, but with full reactivity, type safety, and plugin support.
 
+---
 
 ## ✨ In short:
-* You write state.user.profile.name.set(...) — and the state updates  
-* You call state.user.profile.name.use() — and the component automatically subscribes to changes  
-* Under the hood, it's powered by Redux + Immer + React — but you never deal with the complexity yourself
 
+- You write `state.user.profile.name.set(...)` — and the state updates  
+- You call `state.user.profile.name.use()` — and the component automatically subscribes to changes  
+- Under the hood, it's powered by **Redux + Immer + React** — but you never deal with the complexity yourself
 
-## Features
-- 🔁 `.get()`, `.set()`, `.use()` and `.useWatch()` on any nested path
-- ⚛️ Fully typed reactive access
-- 📦 Redux DevTools compatible
-- 🔌 Plugin system: persist, logger, custom
-- 🧩 Modular, scalable, predictable
+---
 
+## 🚀 Features
 
+- 🔁 `.get()`, `.set()`, `.use()` and `.useWatch()` on any nested path  
+- ⚛️ Fully typed reactive access  
+- 📦 Redux DevTools compatible  
+- 🔌 Plugin system: persist, logger, custom  
+- 🧩 Modular, scalable, predictable  
+
+---
 
 ## 📦 Full install (if you're starting from scratch)
 
@@ -26,8 +30,12 @@ as if you're working with a plain object, but with full reactivity, type safety,
 npm install statekit-react react react-dom react-redux @reduxjs/toolkit
 ```
 
-## 📦 Installation (if you already use React and Redux Toolkit) 
-If your project already uses react, @reduxjs/toolkit, and react-redux, you can simply install state-kit as a lightweight, plugin-ready state manager:
+---
+
+## 📦 Installation (if you already use React and Redux Toolkit)
+
+If your project already uses `react`, `@reduxjs/toolkit`, and `react-redux`,  
+you can simply install **state-kit** as a lightweight, plugin-ready state manager:
 
 ```bash
 # Using npm
@@ -40,7 +48,9 @@ yarn add statekit-react
 pnpm add statekit-react
 ```
 
-## Usage
+---
+
+## 🧪 Usage
 
 ```ts
 import React from 'react';
@@ -86,12 +96,15 @@ export function App() {
         </Provider>
     );
 }
-
 ```
 
-### .set() usage examples
-🔢 For primitive values (e.g. number, string, boolean)  
+---
+
+### 🧮 `.set()` usage examples
+
+#### 🔢 For primitive values (e.g. number, string, boolean)  
 You must return the new value:
+
 ```ts
 // create
 const editor = createState('editor', {
@@ -102,14 +115,14 @@ const editor = createState('editor', {
 editor.size.width.set((prevWidth) => prevWidth + 1);
 ```
 
-🧱 For objects or arrays  
+#### 🧱 For objects or arrays  
 You can mutate the draft directly:
+
 ```ts
 // create
 const editor = createState('editor', {
     size: { width: 100, height: 200 },
 });
-
 
 editor.size.set((prevSize) => {
     prevSize.width += 1;
@@ -120,7 +133,9 @@ editor.size.set((prevSize) => {
 });
 ```
 
-## Persist local storage plugin
+---
+
+## 💾 Persist local storage plugin
 
 ```ts
 import { createState, useLocalStorage } from 'statekit-react';
@@ -132,7 +147,4 @@ const editor = createState('editor', {
 }, [
     useLocalStorage({ restore: true }) // ✅ auto-restore from localStorage
 ]);
-
 ```
-
-
