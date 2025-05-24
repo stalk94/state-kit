@@ -52,6 +52,7 @@ export function createTypedStateAdapter<T>(
                             }
 
                             let parent = draft as any;
+                            
                             for (let i = 0; i < path.length - 1; i++) {
                                 const key = path[i];
                                 if (typeof parent[key] !== 'object' || parent[key] === null) {

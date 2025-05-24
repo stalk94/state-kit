@@ -47,57 +47,44 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { createState, store, useLocalStorage } from 'statekit-react';
 
+const counter = createState('counter', { value: 0 });
 
-// create slice
-const editor = createState('editor', {
-    layout: [],
-    mod: 'block',
-    size: { width: 100, height: 200 },
-});
+// Pure watcher (not bound to any DOM)
+function Logger() {
+  useEffect(() => {
+    const unsub = counter.value.useWatch((v) => console.log('[useWatch] value changed:', v));
+    return unsub;
+  }, []);
 
-
-// test presentation component 2
-function Test2() {
-    const size = editor.size.use();
-
-    return(
-        <div style={{marginTop: '20px', color: 'red'}}>
-            {/* or: editor?.size?.width.use() */}
-            { size.width }                   
-        </div>
-    );
-}
-// test presentation component 1
-function Test({ }) {
-    const size = editor.size.use();
-    editor.size.height.useWatch(console.log)
-
-    React.useEffect(() => {
-         const i = setInterval(() => {
-            editor.size.width.set((prev) => prev + 1);
-        }, 1000);
-
-        return () => clearInterval(i);
-    }, []);
-
-
-    return(
-        <div>
-            { size?.width }
-            <Test2 />
-        </div>
-    );
+  return null;
 }
 
-// root point init
-function App() {
-    return (
-        <Provider store={store}>
-            <div style={{ marginTop: '10%', marginLeft: '20%' }}>
-                <Test />
-            </div>
-        </Provider>
-    );
+// UI component that reacts to changes
+function Display() {
+  const value = counter.value.use();
+  return <div>Value: {value}</div>;   // or even easier: <div>Value: {counter.value.use()}</div>
+}
+
+// Updates state every second
+function Updater() {
+  useEffect(() => {
+    const i = setInterval(() => {
+      counter.value.set(v => v + 1);
+    }, 1000);
+    return () => clearInterval(i);
+  }, []);
+  return null;
+}
+
+// Root component
+export function App() {
+  return (
+    <Provider store={store}>
+      <Logger />
+      <Updater />
+      <Display />
+    </Provider>
+  );
 }
 
 ```
@@ -106,6 +93,11 @@ function App() {
 🔢 For primitive values (e.g. number, string, boolean)  
 You must return the new value:
 ```ts
+// create
+const editor = createState('editor', {
+    size: { width: 100, height: 200 },
+});
+
 // primitive: number
 editor.size.width.set((prevWidth) => prevWidth + 1);
 ```
@@ -113,6 +105,12 @@ editor.size.width.set((prevWidth) => prevWidth + 1);
 🧱 For objects or arrays  
 You can mutate the draft directly:
 ```ts
+// create
+const editor = createState('editor', {
+    size: { width: 100, height: 200 },
+});
+
+
 editor.size.set((prevSize) => {
     prevSize.width += 1;
     prevSize.height += 10;
@@ -130,7 +128,6 @@ import { createState, useLocalStorage } from 'statekit-react';
 // 👇 Creates reactive state with auto-persist
 const editor = createState('editor', {
     layout: [],
-    mod: 'block',
     size: { width: 100, height: 200 },
 }, [
     useLocalStorage({ restore: true }) // ✅ auto-restore from localStorage

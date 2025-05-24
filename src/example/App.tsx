@@ -13,6 +13,7 @@ const editor = createState('editor', {
 ]);
 
 
+
 function Test2() {
     const size = editor.size.use();
     
@@ -27,12 +28,16 @@ function Test2() {
 
 function Test({ }) {
     const size = editor.size.use();
-    editor.size.height.useWatch(console.log)
+    
    
 
     React.useEffect(() => {
         const i = setInterval(() => {
-            
+             editor.size.set((prev)=> {
+                prev.width = prev.width + 1
+                prev.height++
+                return prev;
+             })
         }, 1000);
 
         return () => clearInterval(i);

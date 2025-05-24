@@ -7,11 +7,7 @@ import type { StatePlugin } from './plugins/type';
 
 
 
-export function createState<T extends object>(
-    name: string,
-    initialState: T,
-    plugins: StatePlugin<T>[] = []
-) {
+export function createState<T extends object>( name: string, initialState: T, plugins: StatePlugin<T>[] = []) {
     const slice = createSliceFactory(name, initialState);
     registerReducer(name, slice.reducer);
 
