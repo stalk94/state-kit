@@ -1,34 +1,40 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createState, store, useLocalStorage } from '../index';
+import { createState, store } from '../index';
 import { createRoot } from 'react-dom/client';
 
 
-const counter = createState('counter', { value: 0 });
+const counter = createState('counter', {});
 
-// Pure watcher (not bound to any DOM)
 function Logger() {
-    counter.value.useWatch((v) => {
-        console.log('[useWatch] value changed:', v)
+    counter.useWatch((state) => {
+        console.log(state);
     });
 
     return null;
 }
 
-// UI component that reacts to changes
+
 function Display() {
-    const value = counter.value.use();
-    return <div>Value: {value}</div>;   // or even easier: <div>Value: {counter.value.use()}</div>
+    return (
+        <div style={{marginLeft: '45%', marginTop: '15%', fontSize:'24px', color: 'silver'}}>
+            { counter.use()?.count ?? 'not init' }
+        </div>
+    );
 }
 
-// Updates state every second
 function Updater() {
     React.useEffect(() => {
         const i = setInterval(() => {
-            counter.value.set(v => v + 1);
+            counter.set((state) => {
+                if(!state.count) state.count = 0;
+                state.count ++;
+            });
         }, 1000);
+
         return () => clearInterval(i);
     }, []);
+
     return null;
 }
 

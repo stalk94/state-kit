@@ -133,9 +133,46 @@ editor.size.set((prevSize) => {
 });
 ```
 
----
+## ⚡️ Dynamic nested field creation
 
-## 💾 Persist local storage plugin
+StateKit allows you to mutate and create fields on the fly — even if they were not part of the initial state.
+
+You can start with an empty object:
+
+```ts
+const counter = createState('counter', {}); // no initial shape
+```
+
+And safely assign new fields during `.set(...)`:
+
+```ts
+counter.set((state) => {
+    if (!state.count) state.count = 0;
+    state.count++;
+});
+```
+
+Use `.use()` or `.useWatch()` as usual:
+
+```tsx
+function Display() {
+    return <div>{counter.use()?.count}</div>;
+}
+
+function Logger() {
+    counter.useWatch((state) => {
+        console.log('updated:', state);
+    });
+    return null;
+}
+```
+
+✅ Works reactively — no need to predefine structure.
+
+
+# PLUGINS
+
+### 💾 Persist local storage plugin
 
 ```ts
 import { createState, useLocalStorage } from 'statekit-react';
@@ -148,3 +185,9 @@ const editor = createState('editor', {
     useLocalStorage({ restore: true }) // ✅ auto-restore from localStorage
 ]);
 ```
+
+
+
+## 🙋‍♂️ Feedback / Contributions
+
+Feel free to open issues or submit PRs if you have suggestions or improvements!

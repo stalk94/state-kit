@@ -80,6 +80,7 @@ export function createTypedStateAdapter<T>(
                     return (callback: (value: any) => void) => {
                         React.useEffect(() => {
                             let prev = getAtPath(getLiveState(), path);
+                            
                             const unsubscribe = store.subscribe(() => {
                                 const next = getAtPath(getLiveState(), path);
                                 if (next !== prev) {

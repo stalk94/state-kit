@@ -2,7 +2,6 @@ import { store } from '../store';
 import type { StatePlugin } from './type';
 
 
-
 function deepReplaceNulls<T>(defaults: T, overrides: any): T {
     if (typeof defaults !== 'object' || defaults === null) return overrides ?? defaults;
     if (Array.isArray(defaults))  return (Array.isArray(overrides) ? overrides : defaults) as unknown as T;
@@ -35,9 +34,9 @@ export function persistPlugin<T>(options?: { key?: string; restore?: boolean }):
         if (options?.restore) {
             try {
                 const raw = localStorage.getItem(localKey);
+                
                 if (raw) {
                     const parsed = JSON.parse(raw);
-
                     const fixed = deepReplaceNulls(initialState, parsed);
 
                     dispatch({
